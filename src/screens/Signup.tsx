@@ -13,98 +13,102 @@ import {
 import {Formik} from 'formik';
 import * as yup from 'yup';
 
-const Signup = () => {
+const Signup = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.loginContainer}>
-        <Text style={styles.title}>Visitor Sign In</Text>
-        <Formik
-          initialValues={{
-            name: '',
-            nid: '',
-            companyName: '',
-            purpose: '',
-          }}
-          onSubmit={values => Alert.alert(JSON.stringify(values))}
-          validationSchema={yup.object().shape({
-            name: yup.string().required('Please, provide your name!'),
-            nid: yup.string().required('Please, provide your nid!'),
-            companyName: yup
-              .string()
-              .required('Please, provide your company name!'),
-            purpose: yup
-              .string()
-              .required('Please, specify your purpose of visit!'),
-          })}>
-          {({
-            values,
-            handleChange,
-            errors,
-            setFieldTouched,
-            touched,
-            isValid,
-            handleSubmit,
-          }) => (
-            <View style={styles.formContainer}>
-              {touched.name && errors.name && (
-                <Text style={{fontSize: 12, color: '#FF0D10'}}>
-                  {errors.name}
-                </Text>
-              )}
-              <TextInput
-                value={values.name}
-                style={styles.inputStyle}
-                onChangeText={handleChange('name')}
-                onBlur={() => setFieldTouched('name')}
-                placeholder="Full Name"
-              />
+      <Text style={styles.title}>Visitor Sign In</Text>
+      <Formik
+        initialValues={{
+          name: '',
+          nid: '',
+          companyName: '',
+          purpose: '',
+        }}
+        onSubmit={values => Alert.alert(JSON.stringify(values))}
+        validationSchema={yup.object().shape({
+          name: yup.string().required('Please, provide your name!'),
+          nid: yup.string().required('Please, provide your nid!'),
+          companyName: yup
+            .string()
+            .required('Please, provide your company name!'),
+          purpose: yup
+            .string()
+            .required('Please, specify your purpose of visit!'),
+        })}>
+        {({
+          values,
+          handleChange,
+          errors,
+          setFieldTouched,
+          touched,
+          isValid,
+          handleSubmit,
+        }) => (
+          <View style={styles.formContainer}>
+            {touched.name && errors.name && (
+              <Text style={{fontSize: 12, color: '#FF0D10'}}>
+                {errors.name}
+              </Text>
+            )}
+            <TextInput
+              value={values.name}
+              style={styles.inputStyle}
+              onChangeText={handleChange('name')}
+              onBlur={() => setFieldTouched('name')}
+              placeholder="Full Name"
+            />
 
-              {touched.nid && errors.nid && (
-                <Text style={{fontSize: 12, color: '#FF0D10'}}>
-                  {errors.nid}
-                </Text>
-              )}
-              <TextInput
-                value={values.nid}
-                style={styles.inputStyle}
-                onChangeText={handleChange('nid')}
-                onBlur={() => setFieldTouched('nid')}
-                placeholder="I.D. Number"
-              />
+            {touched.nid && errors.nid && (
+              <Text style={{fontSize: 12, color: '#FF0D10'}}>{errors.nid}</Text>
+            )}
+            <TextInput
+              value={values.nid}
+              style={styles.inputStyle}
+              onChangeText={handleChange('nid')}
+              onBlur={() => setFieldTouched('nid')}
+              placeholder="I.D. Number"
+            />
 
-              {touched.companyName && errors.companyName && (
-                <Text style={{fontSize: 12, color: '#FF0D10'}}>
-                  {errors.companyName}
-                </Text>
-              )}
-              <TextInput
-                value={values.companyName}
-                style={styles.inputStyle}
-                onChangeText={handleChange('companyName')}
-                onBlur={() => setFieldTouched('companyName')}
-                placeholder="Company Name"
-              />
-              {touched.purpose && errors.purpose && (
-                <Text style={{fontSize: 12, color: '#FF0D10'}}>
-                  {errors.purpose}
-                </Text>
-              )}
-              <TextInput
-                value={values.purpose}
-                style={styles.inputStyle}
-                onChangeText={handleChange('purpose')}
-                onBlur={() => setFieldTouched('purpose')}
-                placeholder="Purpose of Visit"
+            {touched.companyName && errors.companyName && (
+              <Text style={{fontSize: 12, color: '#FF0D10'}}>
+                {errors.companyName}
+              </Text>
+            )}
+            <TextInput
+              value={values.companyName}
+              style={styles.inputStyle}
+              onChangeText={handleChange('companyName')}
+              onBlur={() => setFieldTouched('companyName')}
+              placeholder="Company Name"
+            />
+            {touched.purpose && errors.purpose && (
+              <Text style={{fontSize: 12, color: '#FF0D10'}}>
+                {errors.purpose}
+              </Text>
+            )}
+            <TextInput
+              value={values.purpose}
+              style={styles.inputStyle}
+              onChangeText={handleChange('purpose')}
+              onBlur={() => setFieldTouched('purpose')}
+              placeholder="Purpose of Visit"
+            />
+            <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
+              <Button
+                text="Back"
+                disabled={!isValid}
+                onPress={() => navigation.navigate('Home')}
               />
               <Button
                 text="Sign In"
                 disabled={!isValid}
                 onPress={handleSubmit}
+                secondary
               />
             </View>
-          )}
-        </Formik>
-      </View>
+          </View>
+        )}
+      </Formik>
     </SafeAreaView>
   );
 };
