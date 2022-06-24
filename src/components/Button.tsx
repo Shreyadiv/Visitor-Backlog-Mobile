@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, TouchableWithoutFeedback} from 'react-native';
 
-const Button = ({text, onPress}) => {
-  const style = {
+const Button = ({text, onPress, primary}) => {
+  const btnPrimary = {
     button: {
       alignItems: 'center',
       backgroundColor: 'transparent',
@@ -20,10 +20,24 @@ const Button = ({text, onPress}) => {
     },
   };
 
+  const btnSecondary = {
+    button: {
+      alignItems: 'center',
+      backgroundColor: '#3b6637',
+      width: 140,
+      height: 40,
+      borderRadius: 20,
+    },
+    textButton: {
+      fontSize: 20,
+      color: '#fff',
+    },
+  };
+
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <View style={style.button}>
-        <Text style={style.textButton}>{text}</Text>
+      <View style={primary ? btnPrimary.button : btnSecondary.button}>
+        <Text style={btnPrimary.textButton}>{text}</Text>
       </View>
     </TouchableWithoutFeedback>
   );

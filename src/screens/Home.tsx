@@ -29,10 +29,12 @@ const Home = ({navigation}) => {
         <Button
           text="First Time Visitor"
           onPress={() => navigation.navigate('Signup')}
+          primary
         />
         <Button
           text="I have a visitor ID"
           onPress={() => navigation.navigate('Login')}
+          primary
         />
       </View>
     </ImageBackground>

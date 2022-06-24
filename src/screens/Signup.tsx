@@ -100,7 +100,6 @@ const Signup = () => {
                 text="Sign In"
                 disabled={!isValid}
                 onPress={handleSubmit}
-                color="#3b6637"
               />
             </View>
           )}
