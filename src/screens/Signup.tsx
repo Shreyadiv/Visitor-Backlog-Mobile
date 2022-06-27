@@ -1,22 +1,19 @@
-import * as React from 'react';
+import React from 'react';
 
 import Button from '../components/Button';
-
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Text,
-  Alert,
-  TextInput,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Text, Alert} from 'react-native';
+import {TextInput} from '@react-native-material/core';
 import {Formik} from 'formik';
 import * as yup from 'yup';
+import Display from '../components/Display';
 
 const Signup = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Visitor Sign In</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Visitor Sign In</Text>
+        <Display />
+      </View>
       <Formik
         initialValues={{
           name: '',
@@ -51,22 +48,26 @@ const Signup = ({navigation}) => {
               </Text>
             )}
             <TextInput
+              label="Full Name"
+              variant="outlined"
+              color="#3b6637"
               value={values.name}
               style={styles.inputStyle}
               onChangeText={handleChange('name')}
               onBlur={() => setFieldTouched('name')}
-              placeholder="Full Name"
             />
 
             {touched.nid && errors.nid && (
               <Text style={{fontSize: 12, color: '#FF0D10'}}>{errors.nid}</Text>
             )}
             <TextInput
+              label="I.D. Number"
+              variant="outlined"
+              color="#3b6637"
               value={values.nid}
               style={styles.inputStyle}
               onChangeText={handleChange('nid')}
               onBlur={() => setFieldTouched('nid')}
-              placeholder="I.D. Number"
             />
 
             {touched.companyName && errors.companyName && (
@@ -75,11 +76,13 @@ const Signup = ({navigation}) => {
               </Text>
             )}
             <TextInput
+              label="Company Name"
+              variant="outlined"
+              color="#3b6637"
               value={values.companyName}
               style={styles.inputStyle}
               onChangeText={handleChange('companyName')}
               onBlur={() => setFieldTouched('companyName')}
-              placeholder="Company Name"
             />
             {touched.purpose && errors.purpose && (
               <Text style={{fontSize: 12, color: '#FF0D10'}}>
@@ -87,19 +90,30 @@ const Signup = ({navigation}) => {
               </Text>
             )}
             <TextInput
+              label="Purpose of Visit"
+              variant="outlined"
+              color="#3b6637"
               value={values.purpose}
               style={styles.inputStyle}
               onChangeText={handleChange('purpose')}
               onBlur={() => setFieldTouched('purpose')}
-              placeholder="Purpose of Visit"
             />
+
             <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
               <Button
+                name="arrow-left"
+                size={22}
+                color="#3b6637"
+                style={{margin: 5}}
                 text="Back"
                 disabled={!isValid}
                 onPress={() => navigation.navigate('Home')}
               />
               <Button
+                name="check"
+                size={22}
+                color="#fff"
+                style={{margin: 5}}
                 text="Sign In"
                 disabled={!isValid}
                 onPress={handleSubmit}
@@ -120,11 +134,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputStyle: {
-    borderWidth: 1.5,
-    borderColor: 'black',
+    fontSize: 25,
+    borderRadius: 5,
     padding: 12,
     marginBottom: 20,
-    width: 500,
+    width: 600,
     height: 70,
   },
   textInput: {
@@ -136,13 +150,16 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
   },
   formContainer: {
-    padding: 50,
+    padding: 20,
   },
   title: {
-    fontSize: 40,
+    fontSize: 45,
     fontWeight: 'bold',
     color: '#4f4f4f',
-    paddingLeft: 50,
+    paddingRight: '10%',
+  },
+  header: {
+    flexDirection: 'row',
   },
 });
 console.disableYellowBox = true;

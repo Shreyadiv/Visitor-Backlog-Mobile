@@ -27,14 +27,23 @@ const Home = ({navigation}) => {
 
       <View style={{flexDirection: 'row'}}>
         <Button
+          name="account"
+          size={22}
+          color="#fff"
+          style={{margin: 12}}
           text="First Time Visitor"
           onPress={() => navigation.navigate('Signup')}
           primary
         />
         <Button
+          name="comment-account"
+          size={22}
+          color="#9ff1a2"
+          style={{margin: 12}}
           text="I have a visitor ID"
           onPress={() => navigation.navigate('Login')}
           primary
+          colorPrimary
         />
       </View>
     </ImageBackground>

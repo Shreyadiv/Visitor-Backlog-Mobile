@@ -1,18 +1,29 @@
 import React from 'react';
 import {View, Text, TouchableWithoutFeedback} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Button = ({text, onPress, primary, secondary}) => {
+const Button = ({
+  text,
+  onPress,
+  primary,
+  secondary,
+  name,
+  size,
+  color,
+  style,
+}) => {
   const btnPrimary = {
     button: {
       alignItems: 'center',
       backgroundColor: 'transparent',
-      width: 200,
-      height: 40,
-      borderRadius: 20,
+      width: 220,
+      height: 50,
+      borderRadius: 30,
       borderWidth: 2,
       borderColor: '#fff',
       marginTop: 30,
       marginLeft: 10,
+      flexDirection: 'row',
     },
     textButton: {
       fontSize: 20,
@@ -24,14 +35,15 @@ const Button = ({text, onPress, primary, secondary}) => {
     button: {
       alignItems: 'center',
       backgroundColor: '#3b6637',
-      width: 140,
+      width: 120,
       height: 40,
       borderRadius: 20,
-      marginLeft: 10,
+      flexDirection: 'row',
     },
     textButton: {
       fontSize: 20,
       color: '#fff',
+      margin: 5,
     },
   };
 
@@ -39,10 +51,12 @@ const Button = ({text, onPress, primary, secondary}) => {
     button: {
       alignItems: 'center',
       backgroundColor: 'transparent',
-      width: 140,
+      width: 120,
       height: 40,
       borderRadius: 20,
+      margin: 5,
       marginLeft: 10,
+      flexDirection: 'row',
     },
     textButton: {
       fontSize: 20,
@@ -60,6 +74,7 @@ const Button = ({text, onPress, primary, secondary}) => {
             ? btnSecondary.button
             : btn.button
         }>
+        <Icon name={name} size={size} color={color} style={style} />
         <Text
           style={
             primary
