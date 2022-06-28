@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 
 import Button from '../components/Button';
@@ -39,7 +40,6 @@ const Signup = ({navigation}) => {
           setFieldTouched,
           touched,
           isValid,
-          handleSubmit,
         }) => (
           <View style={styles.formContainer}>
             {touched.name && errors.name && (
@@ -102,7 +102,7 @@ const Signup = ({navigation}) => {
             <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
               <Button
                 name="arrow-left"
-                size={22}
+                size={25}
                 color="#3b6637"
                 style={{margin: 5}}
                 text="Back"
@@ -116,7 +116,7 @@ const Signup = ({navigation}) => {
                 style={{margin: 5}}
                 text="Sign In"
                 disabled={!isValid}
-                onPress={handleSubmit}
+                onPress={() => navigation.navigate('StoreInfo')}
                 secondary
               />
             </View>

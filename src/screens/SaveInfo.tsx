@@ -3,25 +3,45 @@ import React from 'react';
 import Button from '../components/Button';
 
 import {SafeAreaView, StyleSheet, View, Text, Alert} from 'react-native';
+import RadioButton from '../components/RadioButton';
 import {TextInput} from '@react-native-material/core';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import Display from '../components/Display';
 
-const Login = ({navigation}) => {
+const SaveInfo = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Returning Visitor</Text>
-        <Display />
+        <Text style={styles.title}>Save my info</Text>
+        <Text style={styles.subTitle}>MNS can store my info for</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Button
+            text="Two Weeks"
+            onPress={() => console.log('Two Weeks')}
+            save
+          />
+          <Button text="A Month" onPress={() => console.log('A Month')} save />
+          <Button
+            text="Indefinitely"
+            onPress={() => console.log('Indefinitely')}
+            save
+          />
+        </View>
+        <Text style={styles.subTitle}>
+          Visitor ID:
+          <Text style={{color: '#3b6637'}}> V1006001 </Text>
+          <Text style={{fontWeight: 'normal'}}> (use on next visit)</Text>
+          {'\n'}
+          Send my Visitor ID via <RadioButton />
+        </Text>
       </View>
       <Formik
         initialValues={{
-          visitorid: '',
+          email: '',
         }}
         onSubmit={values => Alert.alert(JSON.stringify(values))}
         validationSchema={yup.object().shape({
-          visitorid: yup.string().required('Please, provide your visitorid!'),
+          email: yup.string().required('Please, provide your email address!'),
         })}>
         {({
           values,
@@ -30,22 +50,21 @@ const Login = ({navigation}) => {
           setFieldTouched,
           touched,
           isValid,
-          handleSubmit,
         }) => (
           <View style={styles.formContainer}>
-            {touched.visitorid && errors.visitorid && (
+            {touched.email && errors.email && (
               <Text style={{fontSize: 12, color: '#FF0D10'}}>
-                {errors.visitorid}
+                {errors.email}
               </Text>
             )}
             <TextInput
-              label="Visitor ID"
+              label="Email"
               variant="outlined"
               color="#3b6637"
-              value={values.visitorid}
+              value={values.email}
               style={styles.inputStyle}
-              onChangeText={handleChange('visitorid')}
-              onBlur={() => setFieldTouched('visitorid')}
+              onChangeText={handleChange('email')}
+              onBlur={() => setFieldTouched('email')}
             />
             <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
               <Button
@@ -55,17 +74,17 @@ const Login = ({navigation}) => {
                 style={{margin: 5}}
                 text="Back"
                 disabled={!isValid}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate('StoreInfo')}
               />
               <Button
-                name="check"
+                name="content-save"
                 size={22}
                 color="#fff"
                 style={{margin: 5}}
-                text="Sign In"
+                text="Save my info"
                 disabled={!isValid}
-                onPress={handleSubmit}
-                secondary
+                onPress={() => navigation.navigate('Thankyou')}
+                saveInfo
               />
             </View>
           </View>
@@ -92,7 +111,7 @@ const styles = StyleSheet.create({
   textInput: {
     height: 40,
     width: '100%',
-    margin: 10,
+    margin: 5,
     backgroundColor: 'white',
     borderColor: 'gray',
     borderWidth: StyleSheet.hairlineWidth,
@@ -105,6 +124,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#4f4f4f',
     paddingRight: '5%',
+    marginBottom: 20,
+  },
+  subTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black',
   },
   dateCurrent: {
     fontSize: 25,
@@ -113,9 +138,9 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   header: {
-    flexDirection: 'row',
+    paddingRight: '5%',
   },
 });
 console.disableYellowBox = true;
 
-export default Login;
+export default SaveInfo;
