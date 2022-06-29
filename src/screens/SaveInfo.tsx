@@ -8,10 +8,7 @@ import {useFormik} from 'formik';
 import * as yup from 'yup';
 
 const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email('Invalid email')
-    .required('Please, provide your email address!'),
+  email: yup.string().email().required('Please, provide your email address!'),
   sms: yup.string().length(8).required('Please, provide a valid phone number'),
 });
 
@@ -54,35 +51,36 @@ const SaveInfo = ({navigation}) => {
             selected={formik.values.storingPeriod === 'UNDEFINED'}
           />
         </View>
-      </View>
 
-      <View>
-        <Text style={styles.subTitle}>
-          Visitor ID:
-          <Text style={{color: '#3b6637'}}> V1006001 </Text>
-          <Text style={{fontWeight: 'normal'}}> (use on next visit)</Text>
-          {'\n'}
-          Send my Visitor ID via
-        </Text>
         <View>
-          <RadioButton.Group
-            onValueChange={formik.handleChange('transmissionMode')}
-            value={formik.values.transmissionMode}>
-            <View>
-              <Text>Email</Text>
-              <RadioButton value="email" />
-            </View>
-            <View>
-              <Text>SMS</Text>
-              <RadioButton value="sms" />
-            </View>
-          </RadioButton.Group>
+          <Text style={styles.subTitle}>
+            Visitor ID:
+            <Text style={{color: '#3b6637'}}> V1006001 </Text>
+            <Text style={{fontWeight: 'normal'}}> (use on next visit)</Text>
+          </Text>
+          <View>
+            <RadioButton.Group
+              onValueChange={formik.handleChange('transmissionMode')}
+              value={formik.values.transmissionMode}>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={styles.subTitle}>Send my Visitor ID via</Text>
+                <>
+                  <Text style={{fontSize: 20, color: 'black'}}>Email</Text>
+                  <RadioButton value="email" color="#3b6637" />
+                </>
+                <>
+                  <Text style={{fontSize: 20, color: 'black'}}>SMS</Text>
+                  <RadioButton value="sms" color="#3b6637" />
+                </>
+              </View>
+            </RadioButton.Group>
+          </View>
         </View>
         <View style={styles.formContainer}>
           {formik.values.transmissionMode === 'email' ? (
             <>
               <TextInput
-                label="Email"
+                label="Email Address"
                 mode="outlined"
                 outlineColor="#3b6637"
                 activeOutlineColor="#3b6637"
@@ -100,7 +98,7 @@ const SaveInfo = ({navigation}) => {
           ) : (
             <>
               <TextInput
-                label="SMS"
+                label="Phone Number"
                 mode="outlined"
                 keyboardType="phone-pad"
                 outlineColor="#3b6637"
@@ -125,8 +123,7 @@ const SaveInfo = ({navigation}) => {
               color="#3b6637"
               style={{margin: 5}}
               text="Back"
-              disabled={!formik.isValid}
-              onPress={formik.onSubmit}
+              onPress={() => navigation.navigate('Home')}
             />
             <Button
               name="content-save"
@@ -152,7 +149,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputStyle: {
-    fontSize: 25,
+    marginBottom: 20,
     width: 600,
     height: 60,
   },
@@ -163,9 +160,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: 'gray',
     borderWidth: StyleSheet.hairlineWidth,
-  },
-  formContainer: {
-    padding: 20,
   },
   title: {
     fontSize: 45,
@@ -178,6 +172,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: 'black',
+    paddingRight: 15,
+    paddingBottom: 15,
   },
   dateCurrent: {
     fontSize: 25,
@@ -186,7 +182,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   header: {
-    paddingRight: '5%',
+    padding: '5%',
   },
   selectedButton: {
     borderColor: '#4f4f4f',

@@ -1,27 +1,28 @@
 import React from 'react';
-import {TextInput as RNTextInput, View, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
+import {TextInput} from 'react-native-paper';
 
-const Input = () => {
-  const validationColor = '#223e4b';
+const InputText = ({label, value, onChangeText, onBlur}) => {
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        height: 48,
-        borderRadius: 8,
-        borderColor: validationColor,
-        borderWidth: StyleSheet.hairlineWidth,
-        padding: 8,
-      }}>
-      <View style={{flex: 1}}>
-        <RNTextInput
-          underlineColorAndroid="transparent"
-          placeholderTextColor="black"
-        />
-      </View>
-    </View>
+    <TextInput
+      label={label}
+      mode="outlined"
+      outlineColor="#9b979e"
+      activeOutlineColor="#3b6637"
+      value={value}
+      style={styles.inputStyle}
+      onChangeText={onChangeText}
+      onBlur={onBlur}
+    />
   );
 };
 
-export default Input;
+const styles = StyleSheet.create({
+  inputStyle: {
+    marginBottom: 20,
+    width: 600,
+    height: 70,
+  },
+});
+
+export default InputText;

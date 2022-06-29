@@ -1,9 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Button, {Mode} from '../components/Button';
-
 import {SafeAreaView, StyleSheet, View, Text, Alert} from 'react-native';
-import {TextInput} from '@react-native-material/core';
+import InputText from '../components/Input';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import Display from '../components/Display';
@@ -38,12 +37,9 @@ const Login = ({navigation}) => {
                 {errors.visitorid}
               </Text>
             )}
-            <TextInput
+            <InputText
               label="Visitor ID"
-              variant="outlined"
-              color="#3b6637"
               value={values.visitorid}
-              style={styles.inputStyle}
               onChangeText={handleChange('visitorid')}
               onBlur={() => setFieldTouched('visitorid')}
             />

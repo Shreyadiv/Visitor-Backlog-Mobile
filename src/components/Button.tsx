@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TouchableNativeFeedback} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export enum Mode {
@@ -162,12 +162,12 @@ const Button = ({text, onPress, mode, name, size, color, style, selected}) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableNativeFeedback onPress={onPress}>
       <View style={renderStyle()}>
         <Icon name={name} size={size} color={color} style={style} />
         <Text style={renderStyleText()}>{text}</Text>
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableNativeFeedback>
   );
 };
 

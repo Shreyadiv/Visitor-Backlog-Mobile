@@ -1,11 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-
 import Button, {Mode} from '../components/Button';
 import {SafeAreaView, StyleSheet, View, Text, Alert} from 'react-native';
-import {TextInput} from '@react-native-material/core';
 import {Formik} from 'formik';
 import * as yup from 'yup';
+import InputText from '../components/Input';
 import Display from '../components/Display';
 import DropdownComponent from '../components/Dropdown';
 
@@ -43,49 +42,39 @@ const Signup = ({navigation}) => {
           isValid,
         }) => (
           <View style={styles.formContainer}>
+            <InputText
+              label="Full Name"
+              value={values.name}
+              onChangeText={handleChange('name')}
+              onBlur={() => setFieldTouched('name')}
+            />
             {touched.name && errors.name && (
               <Text style={{fontSize: 12, color: '#FF0D10'}}>
                 {errors.name}
               </Text>
             )}
-            <TextInput
-              theme={{colors: {text: '#9b979e'}}}
-              label="Full Name"
-              variant="outlined"
-              color="#3b6637"
-              value={values.name}
-              style={styles.inputStyle}
-              onChangeText={handleChange('name')}
-              onBlur={() => setFieldTouched('name')}
-            />
 
-            {touched.nid && errors.nid && (
-              <Text style={{fontSize: 12, color: '#FF0D10'}}>{errors.nid}</Text>
-            )}
-            <TextInput
+            <InputText
               label="I.D. Number"
-              variant="outlined"
-              color="#3b6637"
               value={values.nid}
-              style={styles.inputStyle}
               onChangeText={handleChange('nid')}
               onBlur={() => setFieldTouched('nid')}
             />
+            {touched.nid && errors.nid && (
+              <Text style={{fontSize: 12, color: '#FF0D10'}}>{errors.nid}</Text>
+            )}
 
+            <InputText
+              label="Company Name"
+              value={values.companyName}
+              onChangeText={handleChange('companyName')}
+              onBlur={() => setFieldTouched('companyName')}
+            />
             {touched.companyName && errors.companyName && (
               <Text style={{fontSize: 12, color: '#FF0D10'}}>
                 {errors.companyName}
               </Text>
             )}
-            <TextInput
-              label="Company Name"
-              variant="outlined"
-              color="#3b6637"
-              value={values.companyName}
-              style={styles.inputStyle}
-              onChangeText={handleChange('companyName')}
-              onBlur={() => setFieldTouched('companyName')}
-            />
             {touched.purpose && errors.purpose && (
               <Text style={{fontSize: 12, color: '#FF0D10'}}>
                 {errors.purpose}

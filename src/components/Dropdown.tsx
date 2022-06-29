@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   dropdown: {
     marginTop: 10,
     marginBottom: 20,
-    height: 60,
+    height: 70,
     width: 600,
     borderColor: 'gray',
     borderWidth: 1.5,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'white',
     left: 10,
-    bottom: 50,
+    bottom: 80,
     zIndex: 999,
     paddingHorizontal: 8,
     fontSize: 14,
