@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 
-import Button from '../components/Button';
+import Button, {Mode} from '../components/Button';
 import {SafeAreaView, StyleSheet, View, Text, Alert} from 'react-native';
 import {TextInput} from '@react-native-material/core';
 import {Formik} from 'formik';
@@ -91,15 +91,6 @@ const Signup = ({navigation}) => {
                 {errors.purpose}
               </Text>
             )}
-            <TextInput
-              label="Purpose of Visit"
-              variant="outlined"
-              color="#3b6637"
-              value={values.purpose}
-              style={styles.inputStyle}
-              onChangeText={handleChange('purpose')}
-              onBlur={() => setFieldTouched('purpose')}
-            />
             <DropdownComponent />
 
             <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
@@ -120,7 +111,7 @@ const Signup = ({navigation}) => {
                 text="Sign In"
                 disabled={!isValid}
                 onPress={() => navigation.navigate('StoreInfo')}
-                secondary
+                mode={Mode.SECONDARY}
               />
             </View>
           </View>

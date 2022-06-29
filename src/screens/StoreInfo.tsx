@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import {StyleSheet, Text, ImageBackground, Image, View} from 'react-native';
-import Button from '../components/Button';
+import Button, {Mode} from '../components/Button';
 
 const StoreInfo = ({navigation}) => {
   return (
@@ -37,7 +37,7 @@ const StoreInfo = ({navigation}) => {
           width={250}
           text="Save my personal info"
           onPress={() => navigation.navigate('SaveInfo')}
-          primary
+          mode={Mode.PRIMARY}
         />
         <Button
           name="delete"
@@ -46,8 +46,7 @@ const StoreInfo = ({navigation}) => {
           style={{margin: 8}}
           text="Discard my info within the next 24 hours"
           onPress={() => navigation.navigate('Thankyou')}
-          store
-          colorPrimary
+          mode={Mode.STORE}
         />
       </View>
     </ImageBackground>

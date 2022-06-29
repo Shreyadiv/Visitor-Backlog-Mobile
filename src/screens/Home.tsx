@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import {StyleSheet, Text, ImageBackground, Image, View} from 'react-native';
-import Button from '../components/Button';
+import Button, {Mode} from '../components/Button';
 
 const Home = ({navigation}) => {
   return (
@@ -34,7 +34,7 @@ const Home = ({navigation}) => {
           style={{margin: 5}}
           text="First Time Visitor"
           onPress={() => navigation.navigate('Signup')}
-          primary
+          mode={Mode.PRIMARY}
         />
         <Button
           name="comment-account"
@@ -43,7 +43,7 @@ const Home = ({navigation}) => {
           style={{margin: 5}}
           text="I have a visitor ID"
           onPress={() => navigation.navigate('Login')}
-          primary
+          mode={Mode.PRIMARY}
         />
       </View>
     </ImageBackground>

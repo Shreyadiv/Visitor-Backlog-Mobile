@@ -2,19 +2,15 @@ import React from 'react';
 import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Button = ({
-  text,
-  onPress,
-  primary,
-  secondary,
-  store,
-  save,
-  saveInfo,
-  name,
-  size,
-  color,
-  style,
-}) => {
+export enum Mode {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  STORE = 'store',
+  SAVE = 'save',
+  SAVE_INFO = 'saveInfo',
+}
+
+const Button = ({text, onPress, mode, name, size, color, style, selected}) => {
   const btnPrimary = {
     button: {
       flexDirection: 'row',
@@ -94,12 +90,12 @@ const Button = ({
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'transparent',
+      backgroundColor: selected ? '#eceaf4' : 'transparent',
       width: 150,
       height: 50,
       borderRadius: 30,
       borderWidth: 2,
-      borderColor: 'gray',
+      borderColor: selected ? '#3b6637' : 'gray',
       marginTop: 20,
       marginBottom: 20,
       marginRight: 15,
@@ -127,39 +123,49 @@ const Button = ({
     },
   };
 
+  const renderStyle = () => {
+    if (mode === Mode.PRIMARY) {
+      return btnPrimary.button;
+    }
+    if (mode === Mode.SECONDARY) {
+      return btnSecondary.button;
+    }
+    if (mode === Mode.STORE) {
+      return btnStore.button;
+    }
+    if (mode === Mode.SAVE) {
+      return btnSave.button;
+    }
+    if (mode === Mode.SAVE_INFO) {
+      return btnSaveInfo.button;
+    }
+    return btnBack.button;
+  };
+
+  const renderStyleText = () => {
+    if (mode === Mode.PRIMARY) {
+      return btnPrimary.textButton;
+    }
+    if (mode === Mode.SECONDARY) {
+      return btnSecondary.textButton;
+    }
+    if (mode === Mode.STORE) {
+      return btnStore.textButton;
+    }
+    if (mode === Mode.SAVE) {
+      return btnSave.textButton;
+    }
+    if (mode === Mode.SAVE_INFO) {
+      return btnSaveInfo.textButton;
+    }
+    return btnBack.textButton;
+  };
+
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <View
-        style={
-          primary
-            ? btnPrimary.button
-            : secondary
-            ? btnSecondary.button
-            : store
-            ? btnStore.button
-            : save
-            ? btnSave.button
-            : saveInfo
-            ? btnSaveInfo.button
-            : btnBack.button
-        }>
+      <View style={renderStyle()}>
         <Icon name={name} size={size} color={color} style={style} />
-        <Text
-          style={
-            primary
-              ? btnPrimary.textButton
-              : secondary
-              ? btnSecondary.textButton
-              : store
-              ? btnStore.textButton
-              : save
-              ? btnSave.textButton
-              : saveInfo
-              ? btnSaveInfo.textButton
-              : btnBack.textButton
-          }>
-          {text}
-        </Text>
+        <Text style={renderStyleText()}>{text}</Text>
       </View>
     </TouchableWithoutFeedback>
   );

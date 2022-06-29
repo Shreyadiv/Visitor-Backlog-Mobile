@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import Button from '../components/Button';
+import Button, {Mode} from '../components/Button';
 
 import {SafeAreaView, StyleSheet, View, Text, Alert} from 'react-native';
 import {TextInput} from '@react-native-material/core';
@@ -65,7 +65,7 @@ const Login = ({navigation}) => {
                 text="Sign In"
                 disabled={!isValid}
                 onPress={handleSubmit}
-                secondary
+                mode={Mode.SECONDARY}
               />
             </View>
           </View>
