@@ -7,6 +7,7 @@ import {TextInput} from '@react-native-material/core';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import Display from '../components/Display';
+import DropdownComponent from '../components/Dropdown';
 
 const Signup = ({navigation}) => {
   return (
@@ -48,6 +49,7 @@ const Signup = ({navigation}) => {
               </Text>
             )}
             <TextInput
+              theme={{colors: {text: '#9b979e'}}}
               label="Full Name"
               variant="outlined"
               color="#3b6637"
@@ -98,6 +100,7 @@ const Signup = ({navigation}) => {
               onChangeText={handleChange('purpose')}
               onBlur={() => setFieldTouched('purpose')}
             />
+            <DropdownComponent />
 
             <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
               <Button
@@ -132,12 +135,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff',
   },
   inputStyle: {
-    fontSize: 25,
-    borderRadius: 5,
-    padding: 12,
-    marginBottom: 20,
+    marginTop: 10,
     width: 600,
     height: 70,
   },
@@ -146,8 +147,6 @@ const styles = StyleSheet.create({
     width: '100%',
     margin: 10,
     backgroundColor: 'white',
-    borderColor: 'gray',
-    borderWidth: StyleSheet.hairlineWidth,
   },
   formContainer: {
     padding: 20,
