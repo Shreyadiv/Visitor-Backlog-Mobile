@@ -10,10 +10,6 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@emotion/react": "^11.9.3",
-    "@emotion/styled": "^11.9.3",
-    "@mui/material": "^5.8.5",
-    "@mui/system": "^5.8.5",
     "@react-native-material/core": "^1.3.7",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
@@ -24,14 +20,12 @@
     "react-native": "0.68.2",
     "react-native-element-dropdown": "^2.0.0",
     "react-native-elements": "^3.4.2",
-    "react-native-material-dropdown": "^0.11.1",
-    "react-native-materialui-textfield": "^0.13.2",
     "react-native-paper": "^4.12.2",
     "react-native-paper-dropdown": "^1.0.7",
-    "react-native-radio-buttons-group": "^2.2.11",
     "react-native-safe-area-context": "^3.4.1",
     "react-native-screens": "^3.13.1",
     "react-native-svg": "^12.3.0",
+    "react-native-svg-transformer": "^1.0.0",
     "react-native-vector-icons": "^9.2.0",
     "yup": "^0.32.11"
   },

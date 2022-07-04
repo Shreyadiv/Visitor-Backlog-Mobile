@@ -10,7 +10,7 @@ const data = [
   {label: 'Other (Please specify)', value: '4'},
 ];
 
-const DropdownComponent = () => {
+const DropdownComponent = ({onBlur, onChangeText}) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -39,7 +39,8 @@ const DropdownComponent = () => {
         placeholder={!isFocus ? 'Purpose of Visit' : '...'}
         value={value}
         onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
+        onBlur={onBlur}
+        onChangeText={onChangeText}
         onChange={item => {
           setValue(item.value);
           setIsFocus(false);
@@ -53,11 +54,11 @@ export default DropdownComponent;
 
 const styles = StyleSheet.create({
   dropdown: {
-    marginTop: 10,
-    marginBottom: 20,
+    marginTop: 20,
+    marginBottom: 0,
     height: 70,
     width: 600,
-    borderColor: 'gray',
+    borderColor: 'lightgray',
     borderWidth: 1.5,
     borderRadius: 5,
     paddingHorizontal: 8,
@@ -66,15 +67,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'white',
     left: 10,
-    bottom: 80,
+    bottom: 60,
     zIndex: 999,
     paddingHorizontal: 8,
     fontSize: 14,
   },
   placeholderStyle: {
-    fontSize: 16,
+    fontSize: 20,
   },
   selectedTextStyle: {
-    fontSize: 16,
+    fontSize: 20,
+    color: 'black',
   },
 });

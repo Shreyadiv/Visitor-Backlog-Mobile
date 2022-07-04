@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Button, {Mode} from '../components/Button';
-import {SafeAreaView, StyleSheet, View, Text, Alert} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import InputText from '../components/Input';
@@ -13,25 +13,28 @@ const Signup = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Visitor Sign In</Text>
-        <Display />
+        <Display dateC name="calendar-blank" />
       </View>
       <Formik
         initialValues={{
           name: '',
           nid: '',
           companyName: '',
-          purpose: '',
+          //purpose: '',
         }}
-        onSubmit={values => Alert.alert(JSON.stringify(values))}
+        onSubmit={values => {
+          console.log(values);
+          navigation.navigate('StoreInfo');
+        }}
         validationSchema={yup.object().shape({
           name: yup.string().required('Please, provide your name!'),
-          nid: yup.string().required('Please, provide your nid!'),
+          nid: yup.string().required('Please, provide your id number!'),
           companyName: yup
             .string()
             .required('Please, provide your company name!'),
-          purpose: yup
-            .string()
-            .required('Please, specify your purpose of visit!'),
+          // purpose: yup
+          //   .string()
+          //   .required('Please, specify your purpose of visit!'),
         })}>
         {({
           values,
@@ -40,6 +43,7 @@ const Signup = ({navigation}) => {
           setFieldTouched,
           touched,
           isValid,
+          handleSubmit,
         }) => (
           <View style={styles.formContainer}>
             <InputText
@@ -49,19 +53,19 @@ const Signup = ({navigation}) => {
               onBlur={() => setFieldTouched('name')}
             />
             {touched.name && errors.name && (
-              <Text style={{fontSize: 12, color: '#FF0D10'}}>
+              <Text style={{fontSize: 15, color: '#FF0D10'}}>
                 {errors.name}
               </Text>
             )}
 
             <InputText
-              label="I.D. Number"
+              label="ID Number"
               value={values.nid}
               onChangeText={handleChange('nid')}
               onBlur={() => setFieldTouched('nid')}
             />
             {touched.nid && errors.nid && (
-              <Text style={{fontSize: 12, color: '#FF0D10'}}>{errors.nid}</Text>
+              <Text style={{fontSize: 15, color: '#FF0D10'}}>{errors.nid}</Text>
             )}
 
             <InputText
@@ -71,18 +75,24 @@ const Signup = ({navigation}) => {
               onBlur={() => setFieldTouched('companyName')}
             />
             {touched.companyName && errors.companyName && (
-              <Text style={{fontSize: 12, color: '#FF0D10'}}>
+              <Text style={{fontSize: 15, color: '#FF0D10'}}>
                 {errors.companyName}
               </Text>
             )}
-            {touched.purpose && errors.purpose && (
-              <Text style={{fontSize: 12, color: '#FF0D10'}}>
+            <DropdownComponent />
+            {/* {touched.purpose && errors.purpose && (
+              <Text style={{fontSize: 15, color: '#FF0D10'}}>
                 {errors.purpose}
               </Text>
-            )}
-            <DropdownComponent />
+            )} */}
 
-            <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignSelf: 'center',
+                paddingTop: 20,
+              }}>
+              <Display name="clock-time-four-outline" text=" Time in: " />
               <Button
                 name="arrow-left"
                 size={25}
@@ -99,7 +109,7 @@ const Signup = ({navigation}) => {
                 style={{margin: 5}}
                 text="Sign In"
                 disabled={!isValid}
-                onPress={() => navigation.navigate('StoreInfo')}
+                onPress={handleSubmit}
                 mode={Mode.SECONDARY}
               />
             </View>
@@ -116,20 +126,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-  },
-  inputStyle: {
-    marginTop: 10,
-    width: 600,
-    height: 70,
-  },
-  textInput: {
-    height: 40,
-    width: '100%',
-    margin: 10,
-    backgroundColor: 'white',
-  },
-  formContainer: {
-    padding: 20,
   },
   title: {
     fontSize: 45,

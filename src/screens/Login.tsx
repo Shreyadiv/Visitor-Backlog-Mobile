@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Button, {Mode} from '../components/Button';
-import {SafeAreaView, StyleSheet, View, Text, Alert} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 import InputText from '../components/Input';
 import {Formik} from 'formik';
 import * as yup from 'yup';
@@ -12,13 +12,16 @@ const Login = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Returning Visitor</Text>
-        <Display />
+        <Display dateC name="calendar-blank" />
       </View>
       <Formik
         initialValues={{
           visitorid: '',
         }}
-        onSubmit={values => Alert.alert(JSON.stringify(values))}
+        onSubmit={values => {
+          console.log(values);
+          navigation.navigate('LoginVisitor');
+        }}
         validationSchema={yup.object().shape({
           visitorid: yup.string().required('Please, provide your visitorid!'),
         })}>
@@ -32,18 +35,24 @@ const Login = ({navigation}) => {
           handleSubmit,
         }) => (
           <View style={styles.formContainer}>
-            {touched.visitorid && errors.visitorid && (
-              <Text style={{fontSize: 12, color: '#FF0D10'}}>
-                {errors.visitorid}
-              </Text>
-            )}
             <InputText
               label="Visitor ID"
               value={values.visitorid}
               onChangeText={handleChange('visitorid')}
               onBlur={() => setFieldTouched('visitorid')}
             />
-            <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
+            {touched.visitorid && errors.visitorid && (
+              <Text style={{fontSize: 15, color: '#FF0D10'}}>
+                {errors.visitorid}
+              </Text>
+            )}
+            <View
+              style={{
+                flexDirection: 'row',
+                alignSelf: 'center',
+                paddingTop: 20,
+              }}>
+              <Display name="clock-time-four-outline" text=" Time in: " />
               <Button
                 name="arrow-left"
                 size={22}
@@ -77,36 +86,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  inputStyle: {
-    fontSize: 25,
-    borderRadius: 5,
-    padding: 12,
-    marginBottom: 20,
-    width: 600,
-    height: 70,
-  },
-  textInput: {
-    height: 40,
-    width: '100%',
-    margin: 10,
-    backgroundColor: 'white',
-    borderColor: 'gray',
-    borderWidth: StyleSheet.hairlineWidth,
-  },
-  formContainer: {
-    padding: 20,
-  },
   title: {
     fontSize: 45,
     fontWeight: 'bold',
     color: '#4f4f4f',
     paddingRight: '5%',
-  },
-  dateCurrent: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    color: '#4f4f4f',
-    margin: 20,
   },
   header: {
     flexDirection: 'row',

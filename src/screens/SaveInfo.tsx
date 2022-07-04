@@ -90,7 +90,7 @@ const SaveInfo = ({navigation}) => {
                 onBlur={() => formik.setFieldTouched('email')}
               />
               {formik.touched.email && formik.errors.email && (
-                <Text style={{fontSize: 12, color: '#FF0D10'}}>
+                <Text style={{fontSize: 15, color: '#FF0D10'}}>
                   {formik.errors.email}
                 </Text>
               )}
@@ -109,21 +109,26 @@ const SaveInfo = ({navigation}) => {
                 onBlur={() => formik.setFieldTouched('sms')}
               />
               {formik.touched.sms && formik.errors.sms && (
-                <Text style={{fontSize: 12, color: '#FF0D10'}}>
+                <Text style={{fontSize: 15, color: '#FF0D10'}}>
                   {formik.errors.sms}
                 </Text>
               )}
             </>
           )}
 
-          <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignSelf: 'flex-end',
+              paddingTop: 20,
+            }}>
             <Button
               name="arrow-left"
               size={22}
               color="#3b6637"
               style={{margin: 5}}
               text="Back"
-              onPress={() => navigation.navigate('Home')}
+              onPress={() => navigation.navigate('StoreInfo')}
             />
             <Button
               name="content-save"
@@ -149,9 +154,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputStyle: {
-    marginBottom: 20,
     width: 600,
     height: 60,
+    fontSize: 20,
   },
   textInput: {
     height: 40,

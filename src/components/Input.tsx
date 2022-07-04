@@ -19,7 +19,10 @@ const InputText = ({label, value, onChangeText, onBlur}) => {
 
 const styles = StyleSheet.create({
   inputStyle: {
-    marginBottom: 20,
+    backgroundColor: '#fff',
+    borderColor: 'gray',
+    fontSize: 20,
+    marginTop: 15,
     width: 600,
     height: 70,
   },
