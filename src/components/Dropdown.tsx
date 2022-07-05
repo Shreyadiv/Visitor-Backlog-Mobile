@@ -10,7 +10,7 @@ const data = [
   {label: 'Other (Please specify)', value: '4'},
 ];
 
-const DropdownComponent = ({onBlur, onChangeText}) => {
+const DropdownComponent = ({onChange}) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -39,11 +39,10 @@ const DropdownComponent = ({onBlur, onChangeText}) => {
         placeholder={!isFocus ? 'Purpose of Visit' : '...'}
         value={value}
         onFocus={() => setIsFocus(true)}
-        onBlur={onBlur}
-        onChangeText={onChangeText}
         onChange={item => {
           setValue(item.value);
           setIsFocus(false);
+          onChange(item);
         }}
       />
     </View>
