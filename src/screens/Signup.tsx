@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import {LogBox} from 'react-native';
 import Button, {Mode} from '../components/Button';
 import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 import {useFormik} from 'formik';
@@ -9,7 +10,7 @@ import Display from '../components/Display';
 import DropdownComponent from '../components/Dropdown';
 
 const validationSchema = yup.object().shape({
-  name: yup.string().required('Please, provide your name!'),
+  fullName: yup.string().required('Please, provide your full name!'),
   nid: yup.string().required('Please, provide your id number!'),
   companyName: yup.string().required('Please, provide your company name!'),
   purpose: yup.string().required('Please, specify your purpose of visit!'),
@@ -18,7 +19,7 @@ const validationSchema = yup.object().shape({
 const Signup = ({navigation}) => {
   const formik = useFormik({
     initialValues: {
-      name: '',
+      fullName: '',
       nid: '',
       companyName: '',
       purpose: '',
@@ -35,8 +36,8 @@ const Signup = ({navigation}) => {
   };
 
   const showTimer = () => {
-    const {name, nid, companyName, purpose} = formik.values;
-    return name && nid && companyName && purpose ? true : false;
+    const {fullName, nid, companyName, purpose} = formik.values;
+    return fullName && nid && companyName && purpose ? true : false;
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -49,12 +50,12 @@ const Signup = ({navigation}) => {
         <InputText
           label="Full Name"
           value={formik.values.name}
-          onChangeText={formik.handleChange('name')}
-          onBlur={() => formik.setFieldTouched('name')}
+          onChangeText={formik.handleChange('fullName')}
+          onBlur={() => formik.setFieldTouched('fullName')}
         />
-        {formik.touched.name && formik.errors.name && (
+        {formik.touched.fullName && formik.errors.fullName && (
           <Text style={{fontSize: 15, color: '#FF0D10'}}>
-            {formik.errors.name}
+            {formik.errors.fullName}
           </Text>
         )}
 
@@ -138,6 +139,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
-console.disableYellowBox = true;
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();
 
 export default Signup;

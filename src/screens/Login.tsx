@@ -1,81 +1,93 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import {LogBox} from 'react-native';
 import Button, {Mode} from '../components/Button';
 import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 import InputText from '../components/Input';
-import {Formik} from 'formik';
+import {useFormik} from 'formik';
 import * as yup from 'yup';
 import Display from '../components/Display';
+import DropdownComponent from '../components/Dropdown';
+
+const validationSchema = yup.object().shape({
+  visitorid: yup.string().required('Please, provide your visitorid!'),
+  purpose: yup.string().required('Please, specify your purpose of visit!'),
+});
 
 const Login = ({navigation}) => {
+  const formik = useFormik({
+    initialValues: {
+      visitorid: '',
+      purpose: '',
+    },
+    validationSchema,
+    onSubmit: values => {
+      console.log(values);
+      navigation.navigate('LoginVisitor');
+    },
+  });
+  const handleDropdown = (text: any) => {
+    formik.values.purpose = text.label;
+    formik.setFieldTouched('purpose');
+  };
+
+  const showTimer = () => {
+    const {visitorid, purpose} = formik.values;
+    return visitorid && purpose ? true : false;
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Returning Visitor</Text>
         <Display dateC name="calendar-blank" />
       </View>
-      <Formik
-        initialValues={{
-          visitorid: '',
-        }}
-        onSubmit={values => {
-          console.log(values);
-          navigation.navigate('LoginVisitor');
-        }}
-        validationSchema={yup.object().shape({
-          visitorid: yup.string().required('Please, provide your visitorid!'),
-        })}>
-        {({
-          values,
-          handleChange,
-          errors,
-          setFieldTouched,
-          touched,
-          isValid,
-          handleSubmit,
-        }) => (
-          <View style={styles.formContainer}>
-            <InputText
-              label="Visitor ID"
-              value={values.visitorid}
-              onChangeText={handleChange('visitorid')}
-              onBlur={() => setFieldTouched('visitorid')}
-            />
-            {touched.visitorid && errors.visitorid && (
-              <Text style={{fontSize: 15, color: '#FF0D10'}}>
-                {errors.visitorid}
-              </Text>
-            )}
-            <View
-              style={{
-                flexDirection: 'row',
-                alignSelf: 'center',
-                paddingTop: 20,
-              }}>
-              <Display name="clock-time-four-outline" text=" Time in: " />
-              <Button
-                name="arrow-left"
-                size={22}
-                color="#3b6637"
-                style={{margin: 5}}
-                text="Back"
-                disabled={!isValid}
-                onPress={() => navigation.navigate('Home')}
-              />
-              <Button
-                name="check"
-                size={22}
-                color="#fff"
-                style={{margin: 5}}
-                text="Sign In"
-                disabled={!isValid}
-                onPress={handleSubmit}
-                mode={Mode.SECONDARY}
-              />
-            </View>
-          </View>
+
+      <View style={styles.formContainer}>
+        <InputText
+          label="Visitor ID"
+          value={formik.values.visitorid}
+          onChangeText={formik.handleChange('visitorid')}
+          onBlur={() => formik.setFieldTouched('visitorid')}
+        />
+        {formik.touched.visitorid && formik.errors.visitorid && (
+          <Text style={{fontSize: 15, color: '#FF0D10'}}>
+            {formik.errors.visitorid}
+          </Text>
         )}
-      </Formik>
+        <DropdownComponent onChange={handleDropdown} />
+        {formik.touched.purpose && formik.errors.purpose && (
+          <Text style={{fontSize: 15, color: '#FF0D10'}}>
+            {formik.errors.purpose}
+          </Text>
+        )}
+        <View
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'center',
+            paddingTop: 20,
+          }}>
+          {showTimer() && <Display name="clock-time-four-outline" />}
+          <Button
+            name="arrow-left"
+            size={22}
+            color="#3b6637"
+            style={{margin: 5}}
+            text="Back"
+            disabled={!formik.isValid}
+            onPress={() => navigation.navigate('Home')}
+          />
+          <Button
+            name="check"
+            size={22}
+            color="#fff"
+            style={{margin: 5}}
+            text="Sign In"
+            disabled={!formik.isValid}
+            onPress={formik.handleSubmit}
+            mode={Mode.SECONDARY}
+          />
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -85,6 +97,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff',
   },
   title: {
     fontSize: 45,
@@ -96,6 +109,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
-console.disableYellowBox = true;
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();
 
 export default Login;

@@ -1,24 +1,38 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import {LogBox} from 'react-native';
 import Button, {Mode} from '../components/Button';
-
 import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 import {TextInput, RadioButton} from 'react-native-paper';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
+import moment from 'moment';
 
 const validationSchema = yup.object().shape({
-  email: yup.string().email().required('Please, provide your email address!'),
-  sms: yup.string().length(8).required('Please, provide a valid phone number'),
+  transmissionMode: yup.string(),
+  email: yup.string().when('transmissionMode', {
+    is: 'email',
+    then: yup.string().email().required('Please, provide your email address!'),
+  }),
+
+  mobile: yup.string().when('transmissionMode', {
+    is: 'mobile',
+    then: yup
+      .string()
+      .length(8)
+      .required('Please, provide a valid phone number'),
+  }),
 });
 
 const SaveInfo = ({navigation}) => {
+  const WEEK = `${moment().add(2, 'weeks').format('yyyy-MM-DD')}`;
+  const MONTH = `${moment().add(1, 'M').format('yyyy-MM-DD')}`;
   const formik = useFormik({
     initialValues: {
       email: '',
-      sms: '',
+      mobile: '',
       transmissionMode: '',
-      storingPeriod: '',
+      expirationDate: '',
     },
     validationSchema,
     onSubmit: values => {
@@ -34,21 +48,21 @@ const SaveInfo = ({navigation}) => {
         <View style={{flexDirection: 'row'}}>
           <Button
             text="Two Weeks"
-            onPress={() => formik.setFieldValue('storingPeriod', 'WEEKS')}
+            onPress={() => formik.setFieldValue('expirationDate', WEEK)}
             mode={Mode.SAVE}
-            selected={formik.values.storingPeriod === 'WEEKS'}
+            selected={formik.values.expirationDate === WEEK}
           />
           <Button
             text="A Month"
-            onPress={() => formik.setFieldValue('storingPeriod', 'MONTH')}
+            onPress={() => formik.setFieldValue('expirationDate', MONTH)}
             mode={Mode.SAVE}
-            selected={formik.values.storingPeriod === 'MONTH'}
+            selected={formik.values.expirationDate === MONTH}
           />
           <Button
             text="Indefinitely"
-            onPress={() => formik.setFieldValue('storingPeriod', 'UNDEFINED')}
+            onPress={() => formik.setFieldValue('expirationDate', '')}
             mode={Mode.SAVE}
-            selected={formik.values.storingPeriod === 'UNDEFINED'}
+            selected={formik.values.expirationDate === ''}
           />
         </View>
 
@@ -70,14 +84,33 @@ const SaveInfo = ({navigation}) => {
                 </>
                 <>
                   <Text style={{fontSize: 20, color: 'black'}}>SMS</Text>
-                  <RadioButton value="sms" color="#3b6637" />
+                  <RadioButton value="mobile" color="#3b6637" />
                 </>
               </View>
             </RadioButton.Group>
           </View>
         </View>
         <View style={styles.formContainer}>
-          {formik.values.transmissionMode === 'email' ? (
+          {formik.values.transmissionMode === 'mobile' ? (
+            <>
+              <TextInput
+                label="Mobile Number"
+                mode="outlined"
+                keyboardType="phone-pad"
+                outlineColor="#3b6637"
+                activeOutlineColor="#3b6637"
+                value={formik.values.mobile}
+                style={styles.inputStyle}
+                onChangeText={formik.handleChange('mobile')}
+                onBlur={() => formik.setFieldTouched('mobile')}
+              />
+              {formik.touched.mobile && formik.errors.mobile && (
+                <Text style={{fontSize: 15, color: '#FF0D10'}}>
+                  {formik.errors.mobile}
+                </Text>
+              )}
+            </>
+          ) : (
             <>
               <TextInput
                 label="Email Address"
@@ -92,25 +125,6 @@ const SaveInfo = ({navigation}) => {
               {formik.touched.email && formik.errors.email && (
                 <Text style={{fontSize: 15, color: '#FF0D10'}}>
                   {formik.errors.email}
-                </Text>
-              )}
-            </>
-          ) : (
-            <>
-              <TextInput
-                label="Phone Number"
-                mode="outlined"
-                keyboardType="phone-pad"
-                outlineColor="#3b6637"
-                activeOutlineColor="#3b6637"
-                value={formik.values.sms}
-                style={styles.inputStyle}
-                onChangeText={formik.handleChange('sms')}
-                onBlur={() => formik.setFieldTouched('sms')}
-              />
-              {formik.touched.sms && formik.errors.sms && (
-                <Text style={{fontSize: 15, color: '#FF0D10'}}>
-                  {formik.errors.sms}
                 </Text>
               )}
             </>
@@ -194,6 +208,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray',
   },
 });
-console.disableYellowBox = true;
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();
 
 export default SaveInfo;

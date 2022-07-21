@@ -14,6 +14,7 @@ const Thankyou = () => {
       <Image
         source={require('../assets/logo.png')}
         style={{width: '25%', height: 135}}
+        resizeMode="contain"
       />
       <Text style={styles.baseText2}>
         Thank you

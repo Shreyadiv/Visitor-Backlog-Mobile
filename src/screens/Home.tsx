@@ -14,7 +14,8 @@ const Home = ({navigation}) => {
       </Text>
       <Image
         source={require('../assets/logo.png')}
-        style={{width: '25%', height: 135}}
+        style={{width: '25%', height: '18%'}}
+        resizeMode="contain"
       />
       <Text style={styles.baseText2}>
         Hello

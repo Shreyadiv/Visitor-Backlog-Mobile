@@ -24,10 +24,16 @@ const Display = ({dateC, name}) => {
     setInterval(() => setCurrentTime(moment().format('HH:mm')), 1000);
 
   useEffect(() => {
+    let isMounted = true;
     const date = moment().format('DD/MM/YYYY');
     setCurrentDate(date);
     setCurrentTime(moment().format('HH:mm'));
-    myInterval();
+    if (isMounted) {
+      myInterval();
+    }
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => () => clearInterval(myInterval()), []);

@@ -7,7 +7,7 @@ const data = [
   {label: 'Meeting', value: '1'},
   {label: 'Training', value: '2'},
   {label: 'Interview', value: '3'},
-  {label: 'Other (Please specify)', value: '4'},
+  {label: 'Other', value: '4'},
 ];
 
 const DropdownComponent = ({onChange}) => {

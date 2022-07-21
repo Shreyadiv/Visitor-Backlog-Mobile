@@ -90,7 +90,7 @@ const Button = ({text, onPress, mode, name, size, color, style, selected}) => {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: selected ? '#eceaf4' : 'transparent',
+      backgroundColor: selected ? '#DCDCDC' : 'transparent',
       width: 150,
       height: 50,
       borderRadius: 30,
