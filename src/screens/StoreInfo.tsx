@@ -3,7 +3,9 @@ import * as React from 'react';
 import {StyleSheet, Text, ImageBackground, Image, View} from 'react-native';
 import Button, {Mode} from '../components/Button';
 
-const StoreInfo = ({navigation}) => {
+const StoreInfo = ({route, navigation}) => {
+  const {visitorid} = route.params;
+  console.log(visitorid);
   return (
     <ImageBackground
       style={styles.body}
@@ -37,7 +39,7 @@ const StoreInfo = ({navigation}) => {
           style={{margin: 5}}
           width={250}
           text="Save my personal info"
-          onPress={() => navigation.navigate('SaveInfo')}
+          onPress={() => navigation.navigate('SaveInfo', {visitorid})}
           mode={Mode.PRIMARY}
         />
         <Button

@@ -8,9 +8,11 @@ import * as yup from 'yup';
 import InputText from '../components/Input';
 import Display from '../components/Display';
 import DropdownComponent from '../components/Dropdown';
+import {userLogin} from '../services/signup-service.ts';
+import {User, SignupResponse} from '../models/mobile-model.ts';
 
 const validationSchema = yup.object().shape({
-  fullName: yup.string().required('Please, provide your full name!'),
+  fullname: yup.string().required('Please, provide your full name!'),
   nid: yup.string().required('Please, provide your id number!'),
   companyName: yup.string().required('Please, provide your company name!'),
   purpose: yup.string().required('Please, specify your purpose of visit!'),
@@ -19,15 +21,18 @@ const validationSchema = yup.object().shape({
 const Signup = ({navigation}) => {
   const formik = useFormik({
     initialValues: {
-      fullName: '',
+      fullname: '',
       nid: '',
       companyName: '',
       purpose: '',
     },
     validationSchema,
-    onSubmit: values => {
-      console.log(values);
-      navigation.navigate('StoreInfo');
+    onSubmit: (values: User, {resetForm}) => {
+      userLogin(values).then((response: SignupResponse) => {
+        console.log('test ', response);
+        navigation.navigate('StoreInfo', {user: response.data});
+        resetForm();
+      });
     },
   });
   const handleDropdown = (text: any) => {
@@ -36,8 +41,8 @@ const Signup = ({navigation}) => {
   };
 
   const showTimer = () => {
-    const {fullName, nid, companyName, purpose} = formik.values;
-    return fullName && nid && companyName && purpose ? true : false;
+    const {fullname, nid, companyName, purpose} = formik.values;
+    return fullname && nid && companyName && purpose ? true : false;
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -49,13 +54,13 @@ const Signup = ({navigation}) => {
       <View style={styles.formContainer}>
         <InputText
           label="Full Name"
-          value={formik.values.name}
-          onChangeText={formik.handleChange('fullName')}
-          onBlur={() => formik.setFieldTouched('fullName')}
+          value={formik.values.fullname}
+          onChangeText={formik.handleChange('fullname')}
+          onBlur={() => formik.setFieldTouched('fullname')}
         />
-        {formik.touched.fullName && formik.errors.fullName && (
+        {formik.touched.fullname && formik.errors.fullname && (
           <Text style={{fontSize: 15, color: '#FF0D10'}}>
-            {formik.errors.fullName}
+            {formik.errors.fullname}
           </Text>
         )}
 

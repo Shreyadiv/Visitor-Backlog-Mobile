@@ -7,6 +7,8 @@ import {TextInput, RadioButton} from 'react-native-paper';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import moment from 'moment';
+import {userSave} from '../services/saveinfo-service.ts';
+import {UpdateUser, SignupResponse} from '../models/mobile-model.ts';
 
 const validationSchema = yup.object().shape({
   transmissionMode: yup.string(),
@@ -24,7 +26,9 @@ const validationSchema = yup.object().shape({
   }),
 });
 
-const SaveInfo = ({navigation}) => {
+const SaveInfo = ({route, navigation}) => {
+  const {user} = route.params;
+  console.log(user);
   const WEEK = `${moment().add(2, 'weeks').format('yyyy-MM-DD')}`;
   const MONTH = `${moment().add(1, 'M').format('yyyy-MM-DD')}`;
   const formik = useFormik({
@@ -35,9 +39,14 @@ const SaveInfo = ({navigation}) => {
       expirationDate: '',
     },
     validationSchema,
-    onSubmit: values => {
-      console.log(values);
-      navigation.navigate('Thankyou');
+    onSubmit: (values: UpdateUser) => {
+      const newObject = {...user, values};
+      userSave(newObject).then((response: SignupResponse) => {
+        console.log('update>>>>', response.data.SignupResponse);
+        navigation.navigate('Thankyou', {
+          SignupResponse: response.data.SignupResponse,
+        });
+      });
     },
   });
   return (
@@ -69,7 +78,7 @@ const SaveInfo = ({navigation}) => {
         <View>
           <Text style={styles.subTitle}>
             Visitor ID:
-            <Text style={{color: '#3b6637'}}> V1006001 </Text>
+            <Text style={{color: '#3b6637'}}> {user.visitorid} </Text>
             <Text style={{fontWeight: 'normal'}}> (use on next visit)</Text>
           </Text>
           <View>
