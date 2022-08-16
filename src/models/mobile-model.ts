@@ -23,3 +23,15 @@ export interface SignupResponse {
   visitorid: string;
   expirationDate: string;
 }
+
+export interface VisitorLog {
+  purpose: String;
+  dateLogin: String;
+}
+
+export interface LoginResponse {
+  user: User;
+  id: integer;
+  purpose: String;
+  dateLogin: String;
+}

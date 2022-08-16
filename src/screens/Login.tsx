@@ -7,7 +7,10 @@ import InputText from '../components/Input';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import Display from '../components/Display';
+//import moment from 'moment';
 import DropdownComponent from '../components/Dropdown';
+import {userLogin} from '../services/login-service.ts';
+import {VisitorLog, LoginResponse} from '../models/mobile-model.ts';
 
 const validationSchema = yup.object().shape({
   visitorid: yup.string().required('Please, provide your visitorid!'),
@@ -21,9 +24,12 @@ const Login = ({navigation}) => {
       purpose: '',
     },
     validationSchema,
-    onSubmit: values => {
-      console.log(values);
-      navigation.navigate('LoginVisitor');
+    onSubmit: (values: VisitorLog) => {
+      userLogin(values).then((response: LoginResponse) => {
+        navigation.navigate('LoginVisitor', {
+          visitorLog: response.data,
+        });
+      });
     },
   });
   const handleDropdown = (text: any) => {

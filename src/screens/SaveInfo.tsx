@@ -28,7 +28,6 @@ const validationSchema = yup.object().shape({
 
 const SaveInfo = ({route, navigation}) => {
   const {user} = route.params;
-  console.log(user);
   const WEEK = `${moment().add(2, 'weeks').format('yyyy-MM-DD')}`;
   const MONTH = `${moment().add(1, 'M').format('yyyy-MM-DD')}`;
   const formik = useFormik({
@@ -40,9 +39,8 @@ const SaveInfo = ({route, navigation}) => {
     },
     validationSchema,
     onSubmit: (values: UpdateUser) => {
-      const newObject = {...user, values};
+      const newObject = {...user, ...values};
       userSave(newObject).then((response: SignupResponse) => {
-        console.log('update>>>>', response.data.SignupResponse);
         navigation.navigate('Thankyou', {
           SignupResponse: response.data.SignupResponse,
         });

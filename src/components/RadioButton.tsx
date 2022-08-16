@@ -23,7 +23,6 @@ const RadioButton = () => {
   const [radioButtons, setRadioButtons] = useState(radioButtonsData);
 
   const onPressRadioButton = radioButtonsArray => {
-    console.log(radioButtonsArray);
     setRadioButtons(radioButtonsArray);
   };
   return (

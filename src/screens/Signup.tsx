@@ -7,9 +7,11 @@ import {useFormik} from 'formik';
 import * as yup from 'yup';
 import InputText from '../components/Input';
 import Display from '../components/Display';
+import moment from 'moment';
 import DropdownComponent from '../components/Dropdown';
-import {userLogin} from '../services/signup-service.ts';
-import {User, SignupResponse} from '../models/mobile-model.ts';
+import {userSignup} from '../services/signup-service.ts';
+import {userLogin} from '../services/login-service.ts';
+import {User, SignupResponse, LoginResponse} from '../models/mobile-model.ts';
 
 const validationSchema = yup.object().shape({
   fullname: yup.string().required('Please, provide your full name!'),
@@ -19,19 +21,25 @@ const validationSchema = yup.object().shape({
 });
 
 const Signup = ({navigation}) => {
+  const day = `${moment().add(24, 'hours').format('yyyy-MM-DD')}`;
   const formik = useFormik({
     initialValues: {
       fullname: '',
       nid: '',
       companyName: '',
       purpose: '',
+      expirationDate: ('', day),
     },
     validationSchema,
-    onSubmit: (values: User, {resetForm}) => {
-      userLogin(values).then((response: SignupResponse) => {
-        console.log('test ', response);
-        navigation.navigate('StoreInfo', {user: response.data});
-        resetForm();
+    onSubmit: (values: User) => {
+      userSignup(values).then((response: SignupResponse) => {
+        const loginValues = response.data;
+        navigation.navigate('StoreInfo', {
+          user: response.data,
+        });
+        userLogin(loginValues).then((response2: LoginResponse) => {
+          console.log('test', response2.data);
+        });
       });
     },
   });

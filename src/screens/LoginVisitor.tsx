@@ -19,7 +19,7 @@ const LoginVisitor = () => {
       <Text style={styles.baseText2}>
         Glad to have you back
         {'\n'}
-        <Text style={styles.innerText2}> Visitor </Text>
+        <Text style={styles.innerText2}>Have a great day</Text>
       </Text>
     </ImageBackground>
   );
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   baseText2: {
     fontWeight: 'bold',
-    fontSize: 40,
+    fontSize: 55,
     color: '#9ff1a2',
     textAlign: 'center',
     marginTop: 30,
