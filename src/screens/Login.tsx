@@ -23,12 +23,12 @@ const Login = ({navigation}) => {
       purpose: '',
     },
     validationSchema,
-    onSubmit: (values: VisitorLog, {resetform}) => {
+    onSubmit: (values: VisitorLog, {resetForm}) => {
       userLogin(values).then((response: LoginResponse) => {
         navigation.navigate('LoginVisitor', {
           visitorLog: response.data,
         });
-        resetform();
+        resetForm();
       });
     },
   });
