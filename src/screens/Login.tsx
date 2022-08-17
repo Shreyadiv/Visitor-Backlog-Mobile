@@ -7,7 +7,6 @@ import InputText from '../components/Input';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import Display from '../components/Display';
-//import moment from 'moment';
 import DropdownComponent from '../components/Dropdown';
 import {userLogin} from '../services/login-service.ts';
 import {VisitorLog, LoginResponse} from '../models/mobile-model.ts';
@@ -24,11 +23,12 @@ const Login = ({navigation}) => {
       purpose: '',
     },
     validationSchema,
-    onSubmit: (values: VisitorLog) => {
+    onSubmit: (values: VisitorLog, {resetform}) => {
       userLogin(values).then((response: LoginResponse) => {
         navigation.navigate('LoginVisitor', {
           visitorLog: response.data,
         });
+        resetform();
       });
     },
   });

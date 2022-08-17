@@ -31,7 +31,7 @@ const Signup = ({navigation}) => {
       expirationDate: ('', day),
     },
     validationSchema,
-    onSubmit: (values: User) => {
+    onSubmit: (values: User, {resetform}) => {
       userSignup(values).then((response: SignupResponse) => {
         const loginValues = response.data;
         navigation.navigate('StoreInfo', {
@@ -40,6 +40,7 @@ const Signup = ({navigation}) => {
         userLogin(loginValues).then((response2: LoginResponse) => {
           console.log('test', response2.data);
         });
+        resetform();
       });
     },
   });
