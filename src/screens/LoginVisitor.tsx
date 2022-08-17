@@ -8,7 +8,7 @@ const LoginVisitor = () => {
       style={styles.body}
       source={require('../assets/Background.gif')}>
       <Text style={styles.baseText}>
-        Welcomessss
+        Welcomes
         <Text style={styles.innerText}> toTEST</Text>
       </Text>
       <Image
